@@ -1,2 +1,2 @@
 # informathion
-Information Theory Python Package
+Measurements for Expected Opportunity Loss
