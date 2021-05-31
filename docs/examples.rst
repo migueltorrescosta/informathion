@@ -1,4 +1,4 @@
-.. _examples:
+.. _Examples:
 
 
 In order to understand the framework it is best to see it through examples
