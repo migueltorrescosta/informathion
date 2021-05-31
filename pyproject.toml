@@ -1,11 +1,11 @@
 [tool.poetry]
 name = "informathion"
-version = "0.1.8"
+version = "0.1.9"
 description = "Measurements for Expected Opportunity Loss"
 authors = ["migueltorrescosta <miguelptcosta1995@gmail.com>"]
 license = "AGPL-3.0-only"
-readme = README.rst
-repository = https://github.com/migueltorrescosta/informathion
+readme = "README.rst"
+repository = "https://github.com/migueltorrescosta/informathion"
 
 [tool.poetry.dependencies]
 python = "^3.9"
