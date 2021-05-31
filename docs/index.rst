@@ -1,11 +1,7 @@
-.. Informathion documentation master file, created by
-   sphinx-quickstart on Mon May 31 22:02:16 2021.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
 
 .. image:: https://readthedocs.org/projects/informathion/badge/?version=latest
-   :target: https://informathion.readthedocs.io/en/latest/?badge=latest
-   :alt: Documentation Status
+    :target: https://informathion.readthedocs.io/en/latest/?badge=latest
+    :alt: Documentation Status
 
 Welcome to Informathion's documentation!
 ========================================
@@ -20,7 +16,7 @@ Informathion is a Framework for Reducing Opportunity Loss by analizing the Infor
    :maxdepth: 2
    :caption: Contents:
 
-
+* :ref:`examples`.
 
 Indices and tables
 ==================
