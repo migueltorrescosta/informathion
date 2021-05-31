@@ -12,7 +12,7 @@ Welcome to Informathion's documentation!
 
 Informathion is a Framework for Reducing Opportunity Loss by analizing the Informational value we can get regarding key random variables.
 
-.. automodule:: informathion.OpportunityLoss
+.. automodule:: informathion
     :members:
 
 .. toctree::
