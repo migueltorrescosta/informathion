@@ -3,6 +3,10 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
+.. image:: https://readthedocs.org/projects/informathion/badge/?version=latest
+   :target: https://informathion.readthedocs.io/en/latest/?badge=latest
+   :alt: Documentation Status
+
 Welcome to Informathion's documentation!
 ========================================
 
@@ -22,4 +26,3 @@ Indices and tables
 
 * :ref:`genindex`
 * :ref:`modindex`
-* :ref:`search`
