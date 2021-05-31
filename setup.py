@@ -10,9 +10,9 @@ def readme():
 setup(
     name='informathion',
     version='0.1.6',
-    description='Measurements for Expected Opportunity Loss',
+    description='Framework for Minimizing Opportunity Loss',
     long_description=readme(),
-    author='migueltorrescosta',
+    author='Miguel Torres Costa',
     author_email='miguelptcosta1995@gmail.com',
     maintainer='migueltorrescosta',
     maintainer_email=None,

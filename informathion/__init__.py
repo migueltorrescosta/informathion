@@ -1,1 +1,1 @@
-from informathion.ExpectedOpportunityLoss import ExpectedOpportunityLoss
+from informathion.OpportunityLoss import OpportunityLoss
