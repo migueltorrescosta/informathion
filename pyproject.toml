@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "informathion"
-version = "0.1.7"
+version = "0.1.8"
 description = "Measurements for Expected Opportunity Loss"
 authors = ["migueltorrescosta <miguelptcosta1995@gmail.com>"]
 license = "AGPL-3.0-only"
