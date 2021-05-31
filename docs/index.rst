@@ -14,6 +14,7 @@ Informathion is a Framework for Reducing Opportunity Loss by analizing the Infor
 
 .. automodule:: informathion
     :members:
+    :undoc-members:
 
 .. toctree::
    :maxdepth: 2
