@@ -9,12 +9,16 @@ class OpportunityLoss:
     Main Class for modelling Opportunity Losses
     """
 
-    def __init__(self, rewards, inputs):
+    def __init__(self, inputs, rewards):
         """
-        :param rewards: {str: function}
-            Deterministic reward function that takes a single dictionary as input, whose keys are a subset of the keys in the random_inputs passed.
-        :param inputs: {str: random_generator}
-            dictionary of random number generators. These are functions that take a single integer input n and return an array of n randomly
+        Main OpportunityLoss Framework Class
+
+        Parameters
+        ---------
+        inputs
+            A dictionary of random variables, mapping the variable name (a string) to a single integer parameter generator function that returns n observations from their sample
+        rewards
+            A dictionary mapping client choices to reward functions. A reward function takes a single dictionary as a parameter, where the keys match the names of the random variables used in the inputs
         """
 
         assert isinstance(rewards,
@@ -31,6 +35,14 @@ class OpportunityLoss:
         self.colour_map = sns.color_palette("RdBu_r", 7)
 
     def add_data_points(self, n):
+        """
+        Generates data based on the provided inputs, a la Monte Carlo
+
+        Parameters
+        ---------
+        n
+            An integer describing the number of datapoints we want to generate
+        """
         new_data = pd.DataFrame({key: random_input(n)
                                 for key, random_input in self.random_inputs.items()})
         for key, reward_function in self.reward_functions.items():
@@ -42,17 +54,22 @@ class OpportunityLoss:
         self.data = pd.concat([self.data, new_data],
                               ignore_index=True).astype(float)
 
-    def _generate_single_metric(self, option):
+    def _generate_single_metric(self, reward_function):
         """
-        Generates the expected_loss and std_deviation for a single option
+        Generates the expected loss and Standard Deviation for a single reward function
+
+        Parameters
+        ---------
+        reward_function
+            A string containing the name of the reward function we're interested in
         """
 
-        return {"Expected Loss": np.mean(self.data[option + " opportunity loss"]),
-                "Standard Deviation": np.std(self.data[option + " opportunity loss"])}
+        return {"Expected Loss": np.mean(self.data[reward_function + " opportunity loss"]),
+                "Standard Deviation": np.std(self.data[reward_function + " opportunity loss"])}
 
     def generate_metrics(self):
         """
-        Generates the metrics table.
+        Generates the metrics table. The table is returned by this method, but also saved under the metrics attribute
         """
         self.metrics = pd.DataFrame({
             option: self._generate_single_metric(option) for option in self.options})
@@ -60,10 +77,13 @@ class OpportunityLoss:
 
     def evaluate_value_of_uncertainty_reduction(self, bins=5):
         """
-        Metrics for the evaluation of which random inputs are worth decreasing the uncertainty of
-        
-        :param bins: integer
-        Number of bins to divide the inputs in. Too small a value might cause you to miss certain relations. Too small a value might cause you to overfit to the data.
+        Returns metrics for the evaluation of which random inputs are worth decreasing the uncertainty of.
+        These are plotting objects, rendering nicely on tools like Kupyter Notebooks
+
+        Parameters
+        ---------
+        bins
+            Number of bins to divide the inputs in. Too small a value might cause you to miss certain relations. Too small a value might cause you to overfit to the data.
         """
 
         savings = {random_input: self.metrics.T["Expected Loss"].min() - self._expected_loss_given_group(
@@ -76,6 +96,11 @@ class OpportunityLoss:
     def _get_optimal_choices_per_group(self, groups):
         """
         Returns a Dictionary of Optimal Choices per Group
+
+        Parameters
+        ---------
+        groups
+            pandas groups object, where each group will be mapped to its optimal choice
         """
         return self.data[[option + " opportunity loss" for option in self.options]].groupby(groups).progress_apply(np.mean).idxmin(axis=1).to_dict()
 
@@ -83,6 +108,11 @@ class OpportunityLoss:
         """
         Returns the expected loss assuming we know exactly in which group we are from the passed Series.
         The series must map the indices in cls.data to the categorical groups
+
+        Parameters
+        ---------
+        groups
+            pandas groups object, where each group will be mapped to its optimal choice
         """
         optimal_choices_per_group = self._get_optimal_choices_per_group(groups)
         return self.data.apply(lambda row: row[optimal_choices_per_group[groups[row.name]]], axis=1).mean()
@@ -98,7 +128,12 @@ class OpportunityLoss:
 
     def plot_loss_distribution(self, options=None):
         """
-        Plots the loss function to 
+        Plots the Loss Distribution given the random inputs passed to the class
+
+        Parameters
+        ---------
+        options
+            List of options to which we will calculate the loss function. Defaults to the full set of options, namely all keys of the rewards dictionary with which the class was generated
         """
         if options is None:
             options = self.options
