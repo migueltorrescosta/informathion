@@ -23,7 +23,7 @@ setup(
     'matplotlib>=3.4.2,<4.0.0',
     'numpy>=1.20.3,<2.0.0',
     'pandas>=2.1.0,<2.2.0',
-    'seaborn>=0.12.2,<0.13.0'
+    'seaborn>=0.13.0,<0.14.0'
     ],
     python_requires='>=3.9,<4.0',
 )
